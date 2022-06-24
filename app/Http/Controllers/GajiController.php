@@ -67,7 +67,10 @@ class GajiController extends Controller
     public function store(Request $request)
     {
 
-
+        $cetakGaji = Gaji::where('nama',$request->nama)->whereDate('created_at', date('Y-m-d'))->get();
+        if(count($cetakGaji) > 0) {
+            return redirect()->back()->with('error','Error tidak boleh menginput data gaji dihari yang sama untuk user sama');
+        }
         $gaji = new Gaji;
         $gaji->id = $request->kode;
         $gaji->nama = $request->nama;
@@ -91,6 +94,10 @@ class GajiController extends Controller
     public function update(Request $request, $id)
     {
         $gaji = Gaji::find($id);
+        /*$cetakGaji = Gaji::where('nama',$request->nama)->whereDate('created_at', date('Y-m-d'))->get();
+        if(count($cetakGaji) > 0) {
+            return redirect()->back()->with('error','Error tidak boleh menginput data gaji dihari yang sama untuk user sama');
+        }*/
         $gaji->id = $request->kode;
         $gaji->nama = $request->nama;
         $gaji->posisi = $request->posisi;

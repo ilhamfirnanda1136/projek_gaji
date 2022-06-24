@@ -13,6 +13,9 @@
 
     <!-- Main content -->
     <section class="content">
+        @if (session('error'))
+        <span class="aler alert-success">{{session('error')}}</span>
+        @endif
         <form method="post" enctype="multipart/form-data" action="{{url('')}}/gaji/update/{{$gaji->id}}">
             @csrf
 
